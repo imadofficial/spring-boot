@@ -3,7 +3,7 @@ This is a schoolproject meant to demonstrate our ability to in a short period of
 
 ## How do I run this?
 There are 2 repositories available:
-    - imadofficial/spring-boot
-    - imadofficial/web-file-manager
+- imadofficial/spring-boot
+- imadofficial/web-file-manager
 
 You need these 2 repositories cloned to be able to run it.

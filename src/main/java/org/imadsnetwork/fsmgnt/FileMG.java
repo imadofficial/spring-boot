@@ -1,5 +1,6 @@
 package org.imadsnetwork.fsmgnt;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -29,12 +30,26 @@ public class FileMG implements FileManagement {
         }
     }
 
-    public void createFile(String fileName){
+    public void createFile(String fileName) {
+        Path p = Paths.get(fileName);
+
+        try {
+            Files.createFile(p);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void deleteFile(String fileName, boolean permanent){
+        public FileStatus deleteFile(String fileName, boolean permanent){
         String file = filePath + "/" + fileName;
-        System.out.println(file);
         Path p = Paths.get(file);
+
+        try{
+            Files.delete(p);
+            return FileStatus.SUCCESS;
+        }catch(IOException e){
+            e.printStackTrace();
+            return FileStatus.FAILURE;
+        }
     }
 }
