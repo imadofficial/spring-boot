@@ -1,0 +1,40 @@
+package org.imadsnetwork.fsmgnt;
+
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.*;
+
+public class FileMG implements FileManagement {
+    String filePath;
+    public FileMG(String filePath){
+        this.filePath = filePath;
+    }
+
+    public Map<String, Object> getFileMetadata(String fileName) {
+        try {
+            Path p = Paths.get(filePath + "/" + fileName); //Converteert de String 'filePath' naar een Path object dat we kunnen gebruiken
+            BasicFileAttributes attrs = Files.readAttributes(p, BasicFileAttributes.class);
+
+            return Map.of(
+                    "fileKey", attrs.fileKey().toString(), //Waar het bestand exact op het schijf is (vb: (dev=1000010,ino=74397868))
+                    "size", attrs.size(), //Geeft je het bestand terug in Bytes
+                    "created", attrs.creationTime().toString(),
+                    "modified", attrs.lastModifiedTime().toString()
+            );
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Map.of(); //Mocht er iets gebeuren, stuurt die een dictionary.
+        }
+    }
+
+    public void createFile(String fileName){
+    }
+
+    public void deleteFile(String fileName, boolean permanent){
+        String file = filePath + "/" + fileName;
+        System.out.println(file);
+        Path p = Paths.get(file);
+    }
+}

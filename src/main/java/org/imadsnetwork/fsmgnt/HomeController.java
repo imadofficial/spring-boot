@@ -2,15 +2,17 @@ package org.imadsnetwork.fsmgnt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Map;
 
 @Controller //Vertelt java om dit klasse gebruikt moet worden als Controller
 public class HomeController {
 
-    @GetMapping("/drives/")
+    @GetMapping("/drives")
     @ResponseBody
     public File[] getDrives() {
         /*
@@ -42,8 +44,14 @@ public class HomeController {
         return new File[0];
     }
 
+    @GetMapping("/fileMeta")
+    @ResponseBody
+    public Map<String, Object> fileMetaTest(@RequestParam String fileName) {
+        FileMG file = new FileMG("/Users/imad/Downloads");
+        return file.getFileMetadata(fileName);
+    }
 
-    @GetMapping("/path/root/{*rest}")
+    @GetMapping("/getContents/path/{*rest}")
     @ResponseBody
     public String handle(@PathVariable String rest) {
         return rest;
