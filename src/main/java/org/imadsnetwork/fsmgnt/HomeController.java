@@ -72,18 +72,19 @@ public class HomeController {
     public String contentType(String extension){
         String lowercased = extension.toLowerCase();
 
-        switch(lowercased) {
-            case "jpg": return "image/jpeg";
-            case "png": return "image/png";
-            case "gif": return "image/gif";
-            case "json": return "application/json";
-            case "mp4": return "video/mp4";
-            case "webm": return "video/webm";
-            case "ogg": return "video/ogg";
-            case "avi": return "video/x-msvideo";
-            case "mov": return "video/quicktime";
-            default: return "application/octet-stream";
-        }
+        return switch (lowercased) {
+            case "jpg" -> "image/jpeg";
+            case "png" -> "image/png";
+            case "gif" -> "image/gif";
+            case "json" -> "application /json";
+            case "mp4" -> "video/mp4";
+            case "webm" -> "video/webm";
+            case "ogg" -> "video/ogg";
+            case "avi" -> "video/x-msvideo";
+            case "mov" -> "video/quicktime";
+
+            default -> "application/octet-stream";
+        };
     }
 }
 
