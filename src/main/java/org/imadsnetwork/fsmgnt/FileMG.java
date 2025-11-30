@@ -40,9 +40,19 @@ public class FileMG implements FileManagement {
         }
     }
 
-        public FileStatus deleteFile(String fileName, boolean permanent){
+    public byte[] getData(String fileName) {
+        Path path = Paths.get(filePath, fileName);
+
+        try {
+            return Files.readAllBytes(path);
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    public FileStatus deleteFile(String fileName, boolean permanent){
         String file = filePath + "/" + fileName;
-        Path p = Paths.get(file);
+        Path p = Paths.get(filePath, fileName);
 
         try{
             Files.delete(p);
