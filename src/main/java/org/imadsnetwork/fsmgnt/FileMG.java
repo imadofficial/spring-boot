@@ -1,6 +1,5 @@
 package org.imadsnetwork.fsmgnt;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -25,7 +24,7 @@ public class FileMG implements FileManagement {
             );
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error \n" + e); /// Issue fix: https://stackoverflow.com/questions/10477607/avoid-printstacktrace-use-a-logger-call-instead
             return Map.of(); //Mocht er iets gebeuren, stuurt die een dictionary.
         }
     }
@@ -36,7 +35,7 @@ public class FileMG implements FileManagement {
         try {
             Files.createFile(p);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error \n" + e);
         }
     }
 
@@ -58,7 +57,7 @@ public class FileMG implements FileManagement {
             Files.delete(p);
             return FileStatus.SUCCESS;
         }catch(IOException e){
-            e.printStackTrace();
+            System.out.println("Error \n" + e);
             return FileStatus.FAILURE;
         }
     }
