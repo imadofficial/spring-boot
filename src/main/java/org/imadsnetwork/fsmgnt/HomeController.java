@@ -59,9 +59,7 @@ public class HomeController {
     @GetMapping("/getContents/path/{*filePath}")
     @ResponseBody
     public ResponseEntity<byte[]> getFileContents(@PathVariable String filePath, @RequestParam String fileName) {
-        System.out.println(filePath + fileName);
-        String[] extension = fileName.split(".");
-
+        String[] extension = fileName.split("\\.");
         FileMG file = new FileMG(filePath);
 
         byte[] fileData = file.getData(fileName);
@@ -72,7 +70,9 @@ public class HomeController {
     }
 
     public String contentType(String extension){
-        switch(extension) {
+        String lowercased = extension.toLowerCase();
+
+        switch(lowercased) {
             case "jpg": return "image/jpeg";
             case "png": return "image/png";
             case "gif": return "image/gif";
