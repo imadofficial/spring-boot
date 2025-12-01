@@ -76,13 +76,44 @@ public class HomeController {
             case "jpg" -> "image/jpeg";
             case "png" -> "image/png";
             case "gif" -> "image/gif";
-            case "json" -> "application /json";
+            case "json" -> "application/json";
             case "mp4" -> "video/mp4";
             case "webm" -> "video/webm";
             case "ogg" -> "video/ogg";
             case "avi" -> "video/x-msvideo";
             case "mov" -> "video/quicktime";
-
+            case "jpeg" -> "image/jpeg";   // sometimes extension is .jpeg
+            case "svg"  -> "image/svg+xml";
+            case "webp" -> "image/webp";
+            case "bmp"  -> "image/bmp";
+            case "tiff" -> "image/tiff";
+            case "txt"  -> "text/plain";
+            case "html" -> "text/html";
+            case "htm"  -> "text/html";
+            case "css"  -> "text/css";
+            case "csv"  -> "text/csv";
+            case "xml"  -> "application/xml"; // or text/xml
+            case "pdf"  -> "application/pdf";
+            case "md"   -> "text/markdown";
+            case "mp3" -> "audio/mpeg";
+            case "wav" -> "audio/wav";
+            case "flac" -> "audio/flac";
+            case "aac" -> "audio/aac";
+            case "m4a" -> "audio/mp4";
+            case "oga" -> "audio/ogg";
+            case "zip"  -> "application/zip";
+            case "gz"   -> "application/gzip";
+            case "tar"  -> "application/x-tar";
+            case "rar"  -> "application/vnd.rar";
+            case "7z"   -> "application/x-7z-compressed";
+            case "js"   -> "application/javascript";
+            case "ts"   -> "application/typescript";
+            case "java" -> "text/x-java-source";
+            case "py"   -> "text/x-python";
+            case "c"    -> "text/x-c";
+            case "cpp"  -> "text/x-c++";
+            case "wasm" -> "application/wasm";
+            case "mjs"  -> "application/javascript";
             default -> "application/octet-stream";
         };
     }
