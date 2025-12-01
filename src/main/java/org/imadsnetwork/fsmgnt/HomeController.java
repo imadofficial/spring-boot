@@ -109,6 +109,34 @@ public class HomeController {
         }
     }
 
+    @PostMapping("/renameFile/path/{*filePath}")
+    @ResponseBody
+    public ResponseEntity<String> renameFile(@PathVariable String filePath, @RequestParam String fileName, @RequestParam String newName) {
+        FileMG file = new FileMG(filePath);
+
+        boolean success = file.renameFile(fileName, newName);
+
+        if (success) {
+            return ResponseEntity.ok("File renamed from: " + fileName + " to " + newName);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Renaming file failed, check the logs for more information.");
+        }
+    }
+
+    @PostMapping("/deleteFile/path/{*filePath}")
+    @ResponseBody
+    public ResponseEntity<String> deleteFile(@PathVariable String filePath, @RequestParam String fileName) {
+        FileMG file = new FileMG(filePath);
+        FileStatus success = file.deleteFile(fileName, true);
+
+        if (success == FileStatus.SUCCESS) {
+            return ResponseEntity.ok("Deleted the following file: " + fileName);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Renaming file failed, check the logs for more information.");
+        }
+    }
 
     public String contentType(String extension){
         String lowercased = extension.toLowerCase();

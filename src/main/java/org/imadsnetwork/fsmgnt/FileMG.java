@@ -73,6 +73,18 @@ public class FileMG implements FileManagement {
         }
     }
 
+    public Boolean renameFile(String fileName, String newName) {
+        Path source = Paths.get(filePath, fileName);
+        Path target = Paths.get(filePath, newName);
+
+        try {
+            Files.move(source, target, StandardCopyOption.REPLACE_EXISTING);
+            return true;
+        } catch (IOException e) {
+            System.out.println("Error\n" + e);
+            return false;
+        }
+    }
 
     public byte[] getData(String fileName) {
         Path path = Paths.get(filePath, fileName);
