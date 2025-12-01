@@ -1,5 +1,6 @@
 package org.imadsnetwork.fsmgnt;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -70,14 +71,13 @@ public class HomeController {
                     ));
 
         }else{
-            return ResponseEntity.badRequest()
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .header(HttpHeaders.CONTENT_TYPE, "application/json")
                     .body(Map.of(
                             "OperationSuccessful", "false"
                     ));
 
         }
-
     }
 
     @GetMapping("/getContents/path/{*filePath}")
@@ -92,6 +92,23 @@ public class HomeController {
                 .header(HttpHeaders.CONTENT_TYPE, contentType(extension[1]))
                 .body(fileData);
     }
+
+    @PostMapping("/updateContent/path/{*filePath}")
+    @ResponseBody
+    public ResponseEntity<String> updateFileContent(@PathVariable String filePath, @RequestParam String fileName, @RequestBody byte[] bodyData) {
+
+        FileMG file = new FileMG(filePath);
+
+        boolean success = file.uploadFile(fileName, bodyData);
+
+        if (success) {
+            return ResponseEntity.ok("File updated at: " + filePath + "/" + fileName);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Upload failed");
+        }
+    }
+
 
     public String contentType(String extension){
         String lowercased = extension.toLowerCase();

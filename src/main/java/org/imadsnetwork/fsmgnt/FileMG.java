@@ -16,11 +16,15 @@ public class FileMG implements FileManagement {
             Path p = Paths.get(filePath + "/" + fileName); //Converteert de String 'filePath' naar een Path object dat we kunnen gebruiken
             BasicFileAttributes attrs = Files.readAttributes(p, BasicFileAttributes.class);
 
+            String type = attrs.isDirectory() ? "folder" : "file";
+
             return Map.of(
+                    "fileName", fileName,
                     "fileKey", attrs.fileKey().toString(), //Waar het bestand exact op het schijf zit op de inode (vb: (dev=1000010,ino=74397868))
                     "size", attrs.size(), //Geeft je het bestand terug in Bytes
                     "created", attrs.creationTime().toString(),
-                    "modified", attrs.lastModifiedTime().toString()
+                    "modified", attrs.lastModifiedTime().toString(),
+                    "type", type
             );
 
         } catch (IOException e) {
