@@ -29,8 +29,24 @@ public class FileMG implements FileManagement {
         }
     }
 
+    public List<Map<String, Object>> listDirectoryFiles() {
+        List<Map<String, Object>> result = new ArrayList<>();
+        Path dir = Paths.get(filePath);
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+            for (Path path : stream) {
+                result.add(getFileMetadata(path.getFileName().toString()));
+            }
+        } catch (IOException e) {
+            System.out.println("Error \n" + e);
+        }
+
+        return result;
+    }
+
+
     public void createFile(String fileName) {
-        Path p = Paths.get(fileName);
+        Path p = Paths.get(filePath, fileName);
 
         try {
             Files.createFile(p);
@@ -38,6 +54,19 @@ public class FileMG implements FileManagement {
             System.out.println("Error \n" + e);
         }
     }
+
+    public Boolean uploadFile(String fileName, byte[] data) {
+        Path p = Paths.get(filePath, fileName);
+
+        try {
+            Files.write(p, data, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING); //Maakt het bestand volledig opnieuw.
+            return true;
+        } catch (IOException e) {
+            System.out.println("Error\n" + e);
+            return false;
+        }
+    }
+
 
     public byte[] getData(String fileName) {
         Path path = Paths.get(filePath, fileName);

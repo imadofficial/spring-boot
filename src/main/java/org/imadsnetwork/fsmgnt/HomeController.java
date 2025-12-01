@@ -51,9 +51,9 @@ public class HomeController {
 
     @GetMapping("/getFiles/path/{*rest}")
     @ResponseBody
-    public String handle(@PathVariable String rest) {
-        return rest;
-
+    public List<Map<String, Object>> getFiles(@PathVariable String path) {
+        FileMG file = new FileMG(path);
+        return file.listDirectoryFiles();
     }
 
     @GetMapping("/getContents/path/{*filePath}")
