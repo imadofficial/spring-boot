@@ -49,11 +49,35 @@ public class HomeController {
         return file.getFileMetadata(fileName);
     }
 
-    @GetMapping("/getFiles/path/{*rest}")
+    @GetMapping("/getFiles/path/{*path}")
     @ResponseBody
     public List<Map<String, Object>> getFiles(@PathVariable String path) {
         FileMG file = new FileMG(path);
         return file.listDirectoryFiles();
+    }
+
+    @GetMapping("/createFile/path/{*filePath}")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> createFile(@PathVariable String filePath, @RequestParam String fileName) {
+            FileMG file = new FileMG(filePath);
+
+        if(file.createFile(fileName)){
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_TYPE, "application/json")
+                    .body(Map.of(
+                            "OperationSuccessful", "true",
+                            "fileName", fileName
+                    ));
+
+        }else{
+            return ResponseEntity.badRequest()
+                    .header(HttpHeaders.CONTENT_TYPE, "application/json")
+                    .body(Map.of(
+                            "OperationSuccessful", "false"
+                    ));
+
+        }
+
     }
 
     @GetMapping("/getContents/path/{*filePath}")

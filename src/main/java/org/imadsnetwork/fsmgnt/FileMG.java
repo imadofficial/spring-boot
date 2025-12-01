@@ -45,13 +45,15 @@ public class FileMG implements FileManagement {
     }
 
 
-    public void createFile(String fileName) {
+    public Boolean createFile(String fileName) {
         Path p = Paths.get(filePath, fileName);
 
         try {
             Files.createFile(p);
+            return true;
         } catch (IOException e) {
             System.out.println("Error \n" + e);
+            return false;
         }
     }
 
